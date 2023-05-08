@@ -1,5 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useMemo } from "react";
 import Header from "./components/header/Header";
 import Footer from "./components/footer/Footer";
 import Home from "./pages/home/Home";
@@ -13,6 +14,8 @@ import TVShowList from "./components/TVcard/TVshowList/TVShowList";
 import PeopleDetail from "./pages/peopleDetail/PeopleDetail";
 
 const App = () => {
+
+  const memoizedLoginPage = useMemo(() => <LoginPage />, []);
   
   return ( 
     <div className='App'>
@@ -26,7 +29,7 @@ const App = () => {
             <Route path='tv' element={<TVShowList />}></Route>
             <Route path='search/:query' element={<SearchPage />}></Route>
             <Route path='person/:id' element={<PeopleDetail />}></Route>
-            <Route path='login' element={<LoginPage />}></Route>
+            <Route path='login' element={memoizedLoginPage}></Route>
             <Route path='register' element={<RegisterPage />}></Route>
             <Route path='/*' element={<h1>Error page</h1>}></Route>
           </Routes>

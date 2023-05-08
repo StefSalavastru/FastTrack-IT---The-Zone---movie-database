@@ -1,19 +1,30 @@
 import React, { useState, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './login.css';
 
 
 const LoginPage = () => {
+
+  const [isLoading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const [user,setUser] = useState({
     name: '',
     password:'',
   })
 
-  const onLoginBtnClick = useCallback(() => {
+  const onLoginBtnClick = useCallback(async () => {
+    setLoading(true)
     console.log(user)
     setTimeout(() => {
       Promise.resolve({
         authenticated: true,
+        token: '123123',
+      })
+      setLoading(false)
+      navigate('/', {
+        authenticated:true,
+        token:'123456',
       })
     }, 2000)
     //todo
@@ -49,7 +60,10 @@ const LoginPage = () => {
         <label htmlFor="password" className='password'>Password</label>
         <input type="password" placeholder="Password" id="password" className='password--input' onChange={onPasswordChange} value={user.password}></input>
 
-        <button className='login--button2' onClick={onLoginBtnClick}>Log In</button>
+        <button className='login--button2' onClick={onLoginBtnClick} disabled={isLoading}>Log In</button>
+        {
+          isLoading ? <div>Logging in...</div> : null
+        }
       </form>
     </div>
   );
