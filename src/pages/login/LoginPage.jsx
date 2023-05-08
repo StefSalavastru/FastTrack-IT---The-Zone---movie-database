@@ -14,24 +14,26 @@ const LoginPage = () => {
   })
 
   const onLoginBtnClick = useCallback(async () => {
+
+    if (!user.name || !user.password) {
+      alert('Please enter your username and your password')
+      return;
+    }
+
     setLoading(true)
     console.log(user)
     setTimeout(() => {
-      Promise.resolve({
-        authenticated: true,
-        token: '123123',
-      })
       setLoading(false)
       navigate('/', {
-        authenticated:true,
-        token:'123456',
+        state: {
+          authenticated:true,
+          user: {
+          name:user.name
+          }
+        }
       })
     }, 2000)
-    //todo
-    //pagina de dashboard
-    //server - login
-    // server - token 
-  }, [user])
+  }, [user, navigate])
 
   const onUserNameChange = useCallback((e) => {
     setUser({
@@ -62,7 +64,7 @@ const LoginPage = () => {
 
         <button className='login--button2' onClick={onLoginBtnClick} disabled={isLoading}>Log In</button>
         {
-          isLoading ? <div>Logging in...</div> : null
+          isLoading ? <div>Logging in...</div> : null 
         }
       </form>
     </div>

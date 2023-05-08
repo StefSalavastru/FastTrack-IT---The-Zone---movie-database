@@ -2,11 +2,18 @@ import React, { useEffect, useState } from 'react';
 import './home.css';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { Carousel } from 'react-responsive-carousel';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import MovieList from '../../components/card/movieList/MovieList';
 import People from '../../components/people/People';
 
 const Home = () => {
+
+  const location =useLocation()
+
+  const isAuthenticated=location.state?.authenticated;
+  const user=location.state?.user;
+
+  isAuthenticated ? alert(`Welcome ${user.name}`) : null;
 
   const [popularMovies, setPopularMovies] = useState([]);
 

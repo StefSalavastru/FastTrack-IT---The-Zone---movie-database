@@ -52,8 +52,7 @@ const PeopleDetail = () => {
                 {currentPersonDetail ? 'Known for: ' + currentPersonDetail.known_for_department : ""}
               </div>
               <div className='movie--rating'>
-                {currentPersonDetail ? currentPersonDetail.popularity : ""}{" "}
-                <i className='fas fa-star' />
+                {currentPersonDetail ? 'Popularity: ' + currentPersonDetail.popularity : ""}{" "}
               </div>
             </div>
             <div className='movie--detailRightBottom'>
