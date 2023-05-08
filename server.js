@@ -12,11 +12,14 @@ connection.connect();
 
 app.get('/api/users', async (req,res) => {
     try {
-        connection.query('SELECT GSID from users AS solution', (err, rows, fields) => {
+        var username=req.query.username;
+        var password=req.query.password;
+
+        connection.query(`SELECT * from USERS WHERE username=${username} AND password=${password}`, (err, rows, fields) => {
             if (err) throw err
           
             console.log('The solution is: ', rows[0]);
-            res.status(200).send(rows[0]);
+            res.status(200).send(rows[0] );
           })
           
     }
@@ -37,7 +40,6 @@ app.post('/api/users', async (req,res) => {
         connection.query(sql, (err, rows, fields) => {
             if (err) throw err
           
-            //console.log('The solution is: ', rows[0]);
             res.status(200).send(rows[0]);
           })
           

@@ -7,6 +7,7 @@ const LoginPage = () => {
 
   const [isLoading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const[credentials,setCredentials] =useState({});
 
   const [user,setUser] = useState({
     name: '',
@@ -14,6 +15,12 @@ const LoginPage = () => {
   })
 
   const onLoginBtnClick = useCallback(async () => {
+
+    fetch(`http://127.0.0.1:3001/api/users?username=${user.name}&password=${user.password}`)
+    .then((res) => res.json())
+    .then((data)=> setCredentials(data))
+
+   console.log({credentials})
 
     if (!user.name || !user.password) {
       alert('Please enter your username and your password')
@@ -24,14 +31,14 @@ const LoginPage = () => {
     console.log(user)
     setTimeout(() => {
       setLoading(false)
-      navigate('/', {
-        state: {
-          authenticated:true,
-          user: {
-          name:user.name
-          }
-        }
-      })
+      // navigate('/', {
+      //   state: {
+      //     authenticated:true,
+      //     user: {
+      //     name:user.name
+      //     }
+      //   }
+      // })
     }, 2000)
   }, [user, navigate])
 
