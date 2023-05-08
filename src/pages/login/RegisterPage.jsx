@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import './login.css';
+// import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons';
 
 const RegisterPage = () => {
 
@@ -22,7 +23,12 @@ const RegisterPage = () => {
 
     console.log(token)
 
+    fetch(`http://127.0.0.1:3001/api/users?username=${user.name}&password=${user.password}&gsid=${token}`, {
+      method:'POST',
+    })
+
     if (!user.name || !user.password || !user.email) {
+      console.log(user)
       alert('Please enter your details to register')
       return;
     }
@@ -32,7 +38,6 @@ const RegisterPage = () => {
       setLoading(false)
     }, 2000)
 
-    console.log(user)
   }, [user])
 
   const onEmailChange = useCallback((e) => {
@@ -40,6 +45,7 @@ const RegisterPage = () => {
      ...user,
      email: e.target.value,
     })
+    console.log(user)
   }, [setUser, user])
 
   const onNameChange = useCallback((e) => {
@@ -47,6 +53,7 @@ const RegisterPage = () => {
      ...user,
      name: e.target.value,
     })
+    console.log(user)
   }, [setUser, user])
 
   const onPasswordChange = useCallback((e) => {
@@ -54,6 +61,7 @@ const RegisterPage = () => {
       ...user,
       password: e.target.value,
      })
+     console.log(user)
    }, [setUser, user])
 
   return (
@@ -64,13 +72,13 @@ const RegisterPage = () => {
       <form className='login--form'>
 
       <label htmlFor="email" className='username'>E-mail address</label>
-        <input type="email" placeholder="E-mail address" id="email" className='login--input' onChange={onEmailChange} value={user.email}></input>
+        <input type="email" placeholder="E-mail address" id="email" className='login--input' onInput={onEmailChange} value={user.email}></input>
 
         <label htmlFor="username" className='username'>Username</label>
-        <input type="text" placeholder="Username" id="username" className='login--input' onChange={onNameChange} value={user.name}></input>
+        <input type='text' placeholder='Username' id='username' className='login--input' onInput={onNameChange} value={user.name}></input>
 
         <label htmlFor="password" className='password'>Password</label>
-        <input type="password" placeholder="Password" id="password" className='password--input' onChange={onPasswordChange} value={user.password}></input>
+        <input type='password' placeholder='Password' id='password' className='password--input' onInput={onPasswordChange} value={user.password}></input>
 
         <button className='login--button2' onClick={onRegisterBtnClick} disabled={isLoading}>Register</button>
       </form>
