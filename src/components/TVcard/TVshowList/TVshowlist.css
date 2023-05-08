@@ -1,0 +1,14 @@
+.TV--list {
+    padding:0 3rem 3rem 3rem;
+}
+
+.TV--title {
+    font-size:1.75rem;
+    margin:2.5rem;
+}
+
+.TV--cards {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+}
