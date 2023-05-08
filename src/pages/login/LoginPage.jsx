@@ -20,7 +20,7 @@ const LoginPage = () => {
     .then((res) => res.json())
     .then((data)=> setCredentials(data))
 
-   console.log({credentials})
+   console.log(credentials)
 
     if (!user.name || !user.password) {
       alert('Please enter your username and your password')
@@ -31,14 +31,14 @@ const LoginPage = () => {
     console.log(user)
     setTimeout(() => {
       setLoading(false)
-      // navigate('/', {
-      //   state: {
-      //     authenticated:true,
-      //     user: {
-      //     name:user.name
-      //     }
-      //   }
-      // })
+      navigate('/', {
+        state: {
+          authenticated:true,
+          user: {
+          name:user.name
+          }
+        }
+      })
     }, 2000)
   }, [user, navigate])
 
