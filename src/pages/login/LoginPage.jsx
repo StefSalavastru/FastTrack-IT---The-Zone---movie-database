@@ -16,9 +16,9 @@ const LoginPage = () => {
 
   const onLoginBtnClick = useCallback(async () => {
 
-    fetch(`http://127.0.0.1:3001/api/users?username=${user.name}&password=${user.password}`)
+    fetch(`http://127.0.0.1:3001/api/users?username="${user.name}"&password="${user.password}"`)
     .then((res) => res.json())
-    .then((data)=> setCredentials(data))
+    .then((data)=> setCredentials(data.results))
 
    console.log(credentials)
 
